@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local datasets and logs (keep them local only)
+CIFAR10/CIFAR10/data/
+CIFAR10/data/
+CIFAR10/logs/
+logs/
+
+# Other coursework kept locally
+PyTorch深度学习实践/
+cs245/
