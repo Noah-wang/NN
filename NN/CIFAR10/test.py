@@ -3,7 +3,7 @@ import os
 import cv2
 import torchvision.transforms as transforms
 from torch.serialization import add_safe_globals
-from net import CIFAR10Net
+from CIFAR10.model import CIFAR10Net
 
 classes = [
     "airplane",

@@ -1,0 +1,55 @@
+import copy
+import time
+from altair import Data
+import pandas as pd
+import torch
+from torch import nn
+import torch.utils.data as data
+import torchvision
+from torchvision.datasets import FashionMNIST
+from model import LeNet
+from torchvision import transforms
+
+
+def test_data_process():
+    test_data = FashionMNIST(
+        root="./data",
+        train=False,
+        transform=torchvision.transforms.Compose(
+            [torchvision.transforms.Resize(size=28), torchvision.transforms.ToTensor()]
+        ),
+        download=True,
+    )
+
+    test_dataloader = data.DataLoader(
+        dataset=test_data, batch_size=1, shuffle=True, num_workers=0
+    )
+    return test_dataloader
+
+
+test_dataloader = test_data_process()
+
+
+def test_model_process(model, test_dataloader):
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = model.to(device)
+    model.eval()
+
+    test_correct = 0
+    test_num = 0
+
+    with torch.no_grad():
+        for test_data_x, test_data_y in enumerate(test_dataloader):
+            test_data_x = test_data_x.to(device)
+            test_data_y = test_data_y.to(device)
+
+            model.eval()
+
+            output = model(test_data_x)
+
+            pre_lab = torch.argmax(output, dim=1)
+            test_corrects += torch.sum(pre_lab == test_data_y).item()
+            test_num += test_data_x.size(0)
+
+    test_acc = test_corrects.double().item() / test_num
+    print("测试集上的准确率为: {:.4f}".format(test_acc))

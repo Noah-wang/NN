@@ -2,7 +2,7 @@ from pathlib import Path
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 import torch
-from net import CIFAR10Net
+from CIFAR10.model import CIFAR10Net
 from torch.utils.tensorboard import SummaryWriter
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -22,12 +22,12 @@ def main():
 
     print("正在下载CIFAR10数据集...")
     train_dataset = datasets.CIFAR10(
-        str(BASE_DIR / "data"), train=True, transform=transform, download=True
+        str(BASE_DIR / "./data"), train=True, transform=transform, download=True
     )
 
     print("正在下载CIFAR10测试数据集...")
     test_dataset = datasets.CIFAR10(
-        str(BASE_DIR / "data"), train=False, transform=transform, download=True
+        str(BASE_DIR / "./data"), train=False, transform=transform, download=True
     )
 
     train_dataset_size = len(train_dataset)
