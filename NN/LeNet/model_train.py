@@ -128,8 +128,7 @@ def train_model_process(model, train_dataloader, val_dataload, num_epochs):
         )
 
     # 保存最优模型参数
-    model.load_state_dict(best_model_wts)
-    torch.save(model.state_dict(), "LeNet/best_model.pth")
+    torch.save(best_model_wts, "LeNet/best_model.pth")
 
     train_process = pd.DataFrame(
         data={
@@ -163,7 +162,7 @@ def matplot_acc_loss(train_process):
     plt.plot(
         train_process["epoch"],
         train_process.train_acc_all,
-        "ro-",
+        "bo-",
         label="train accuracy",
     )
 
